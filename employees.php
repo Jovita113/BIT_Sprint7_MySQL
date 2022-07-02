@@ -30,6 +30,34 @@
                     </form>
                 </div>
             </div>
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Employee</th>
+                            <th>Project</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT employees.EmployeeID, employees.EmployeeName, projects.ProjectName 
+                                FROM employees
+                                LEFT JOIN projects ON employees.ProjectID = projects.ID
+                                ORDER BY employees.EmployeeID";
+                        
+                        $result_employees = mysqli_query($conn, $sql);
+
+                        while ($row = mysqli_fetch_array($result_employees)) { ?>
+                            <tr>
+                                <td><?php echo $row['EmployeeID'] ?></td>
+                                <td><?php echo $row['EmployeeName'] ?></td>
+                                <td><?php echo $row['ProjectName'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

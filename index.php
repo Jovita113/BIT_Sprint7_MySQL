@@ -25,10 +25,39 @@
                             <input type="text" name="projectname" class="form-control" placeholder="project title" autofocus>
                         </div>
                         <div class="d-grid gap-2">
-                            <input type="submit" class="btn btn-success  btn-block" name="create" value="Create">
+                            <input type="submit" class="btn btn-success  btn-block" name="create" value="Create project">
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Project</th>
+                            <th>Employees</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT projects.*, group_concat(EmployeeName) as combinedEmp
+                                FROM employees
+                                RIGHT JOIN projects ON projects.ID = employees.ProjectID
+                                GROUP BY ProjectName 
+                                ORDER BY ID";
+                        
+                        $result_projects = mysqli_query($conn, $sql);
+
+                        while ($row = mysqli_fetch_array($result_projects)) { ?>
+                            <tr>
+                                <td><?php echo $row['ID'] ?></td>
+                                <td><?php echo $row['ProjectName'] ?></td>
+                                <td><?php echo $row['combinedEmp'] ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
