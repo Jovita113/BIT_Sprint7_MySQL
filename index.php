@@ -37,6 +37,7 @@
                             <th>Id</th>
                             <th>Project</th>
                             <th>Employees</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,6 +55,14 @@
                                 <td><?php echo $row['ID'] ?></td>
                                 <td><?php echo $row['ProjectName'] ?></td>
                                 <td><?php echo $row['combinedEmp'] ?></td>
+                                <td>
+                                    <a href="" class="btn btn-secondary">
+                                        <i class="fa-solid fa-marker"></i>
+                                    </a>
+                                    <a href="" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
