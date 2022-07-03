@@ -56,10 +56,10 @@
                                 <td><?php echo $row['ProjectName'] ?></td>
                                 <td><?php echo $row['combinedEmp'] ?></td>
                                 <td>
-                                    <a href="" class="btn btn-secondary">
+                                    <a href="update_project.php?ID=<?php echo $row['ID']?>" class="btn btn-secondary">
                                         <i class="fa-solid fa-marker"></i>
                                     </a>
-                                    <a href="" class="btn btn-danger">
+                                    <a href="delete_project.php?ID=<?php echo $row['ID']?>" class="btn btn-danger">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </td>
