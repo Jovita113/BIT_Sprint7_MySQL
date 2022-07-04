@@ -55,7 +55,7 @@
                                 <td><?php echo $row['EmployeeName'] ?></td>
                                 <td><?php echo $row['ProjectName'] ?></td>
                                 <td>
-                                    <a href="update_employee.php" class="btn btn-secondary">
+                                    <a href="update_employee.php?EmployeeID=<?php echo $row['EmployeeID']?>" class="btn btn-secondary">
                                         <i class="fa-solid fa-marker"></i>
                                     </a>
                                     <a href="delete_employee.php?EmployeeID=<?php echo $row['EmployeeID']?>" class="btn btn-danger">
