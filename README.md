@@ -21,9 +21,8 @@ Project is created with:
 * Clone the repository
 * Install Xammp and navigate  to xammp/htdocs and save this project.
 * Open MySQL workbench and connect
-* Create database "sprintdb"
 * Next steps:
-    - Server -> Data Import -> Import from Self-Containet File (choose:'your path'/sprintdb.sql)  -> Start Import
+    - Server -> Data Import -> Import from Self-Containet File (choose:'your path'/sprintdb.sql) -> Default target schema (new - "sprintdb") -> Start Import
 * In XAMPP control panel start Apache and MySQL
 * Open the path where you can launch php interpreter, e.g.: http//localhost/BIT_Sprint7_MySQL/
 * Done!
