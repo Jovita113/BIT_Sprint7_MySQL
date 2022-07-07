@@ -2,29 +2,33 @@
 
 include("db.php");
 
-if (isset($_GET['EmployeeID'])) {
-    $employeeid = $_GET['EmployeeID'];
-    $sql1 = "SELECT * FROM employees WHERE EmployeeID = $employeeid";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    
+    $sql1 = "SELECT * FROM employees WHERE id = $id";
     $result1 = mysqli_query($conn, $sql1);
     if (mysqli_num_rows($result1) == 1) {
         $row = mysqli_fetch_array($result1);
-        $employeename = $row['EmployeeName'];
+        $firstname = $row['firstName'];
+        $lastname = $row['lastName'];
     }
-}
+} 
 
-
-if (isset($_POST['updateEM'])) {
-    $employeeid = $_GET['EmployeeID'];
-    $employeename = $_POST['EmployeeName'];
-   
-    $sql1 = "UPDATE employees SET EmployeeName = '$employeename' WHERE EmployeeID = $employeeid";
-    mysqli_query($conn, $sql1);
+if (isset($_POST['submit'])) {
+    $id = $_GET['id'];
+    $firstname = $_POST['firstName'];
+    $lastname = $_POST['lastName'];
+    $projectname = $_POST['ProjectName'];
     
+    $sql1 = "UPDATE employees SET firstName ='$firstname', lastName = '$lastname', addedProject = '$projectname' WHERE id = $id";
+    mysqli_query($conn, $sql1);
+
     $_SESSION['message'] = 'Updated Successfuly';
     $_SESSION['message_type'] = 'warning';
 
-    header("location: employees.php");
-}
+    header("location: employees.php"); 
+               
+}      
 
 ?>
 
@@ -36,11 +40,27 @@ if (isset($_POST['updateEM'])) {
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="card card-body">
-                <form action="update_employee.php?EmployeeID=<?php echo $_GET['EmployeeID']; ?>" method="POST">
+                <form action="update_employee.php?id=<?php echo $_GET['id']; ?>" method="POST">
                     <div class="form-group">
-                        <input type="text" name="EmployeeName" value="<?php echo $employeename; ?>" class="form-control" placeholder="Update name">
+                        <p style="text-align:center; color:green"; ><b>Editing the employee info</b></p>
+                        <input type="text" name="firstName" value="<?php echo $firstname; ?>" class="form-control" placeholder="first name" />
                     </div>
-                    <button class="btn btn-success mt-3" name="updateEM">Update</button>
+                    <div class="form-group mt-4">   
+                        <input type="text" name="lastName" value="<?php echo $lastname; ?>" class="form-control" placeholder="last name" />
+                    </div>
+                    <div  class="form-group mt-4">
+                        <select name="ProjectName">
+                            <option value="ProjectName">PROJECT</option>
+                            <?php
+                                $sql = 'SELECT * FROM projects';
+                                $result_projects = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_array($result_projects)) { ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['ProjectName'] ;?></option>
+                                <?php } ?>
+                        </select>
+                    </div> 
+                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                    <input type="submit" name="submit" value="Update" class="btn btn-success mt-3" />
                 </form>
             </div>
         </div>

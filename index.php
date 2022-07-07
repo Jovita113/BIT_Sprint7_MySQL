@@ -1,4 +1,8 @@
-<?php include("db.php") ?>
+<?php
+
+  declare(strict_types=1);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +12,10 @@
 </head>
 
 <body>
+    <?php include 'db.php'; ?>
+
     <?php include 'includes/navbar.php'; ?>
+    
     <div class="container p-4">
         <div class="row">
             <div class="col-md-4">
@@ -22,7 +29,7 @@
                 <div class="card card-body">
                     <form action="create.php" method="POST">
                         <div class="form-group mb-4">
-                            <input type="text" name="projectname" class="form-control" placeholder="project title" autofocus>
+                            <input type="text" name="ProjectName" class="form-control" placeholder="project title" autofocus>
                         </div>
                         <div class="d-grid gap-2">
                             <input type="submit" class="btn btn-success  btn-block" name="create" value="Create project">
@@ -42,24 +49,24 @@
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT projects.*, group_concat(EmployeeName) as combinedEmp
+                        $sql = 'SELECT projects.*, group_concat(" ", firstName," ",lastName) as combinedEmp
                                 FROM employees
-                                RIGHT JOIN projects ON projects.ID = employees.ProjectID
+                                RIGHT JOIN projects ON projects.id = employees.addedProject
                                 GROUP BY ProjectName 
-                                ORDER BY ID";
+                                ORDER BY id';
                         
                         $result_projects = mysqli_query($conn, $sql);
 
                         while ($row = mysqli_fetch_array($result_projects)) { ?>
                             <tr>
-                                <td><?php echo $row['ID'] ?></td>
+                                <td><?php echo $row['id'] ?></td>
                                 <td><?php echo $row['ProjectName'] ?></td>
                                 <td><?php echo $row['combinedEmp'] ?></td>
                                 <td>
-                                    <a href="update_project.php?ID=<?php echo $row['ID']?>" class="btn btn-secondary">
+                                    <a href="update_project.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
                                         <i class="fa-solid fa-marker"></i>
                                     </a>
-                                    <a href="delete_project.php?ID=<?php echo $row['ID']?>" class="btn btn-danger">
+                                    <a href="delete_project.php?id=<?php echo $row['id']?>" class="btn btn-danger">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </td>
