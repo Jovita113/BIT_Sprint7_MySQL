@@ -7,6 +7,9 @@ System Requirements:
 - employees: hosting, editing, deletion
 - projects: hosting, editing, deletion, assignment to employees (>1 employee can work on the project).  
 
+## Page example
+![Page](./images/page.png)
+
 ## Technologies
 
 Project is created with:
