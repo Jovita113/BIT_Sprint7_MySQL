@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         
     }  else {
         $projectname= $_POST['ProjectName'];
-        $sql2 = "UPDATE employees SET firstName ='$firstname', lastName = '$lastname', addedProject = '$projectname' WHERE id = $id";
+        $sql2 = "UPDATE employees SET addedProject = '$projectname' WHERE id = $id";
         $result1 = mysqli_query($conn, $sql2);
         if (!$result1){
             die("Query filed");
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
         header("location: employees.php"); 
     }           
 } 
-     
+
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -64,8 +64,10 @@ if (isset($_POST['submit'])) {
                         <input type="text" name="lastName" value="<?php echo $lastname; ?>" class="form-control" placeholder="last name" />
                     </div>
                     <div  class="form-group mt-4">
+                        <label for="ProjectName">Add or change a project:</label>
                         <select name="ProjectName">
-                            <option value="0">PROJECT</option>
+                            <option value="0"></option>
+                            
                             <?php
                                 $sql = 'SELECT * FROM projects';
                                 $result_projects = mysqli_query($conn, $sql);
