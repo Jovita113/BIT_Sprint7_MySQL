@@ -18,18 +18,33 @@ if (isset($_POST['submit'])) {
     $id = $_GET['id'];
     $firstname = $_POST['firstName'];
     $lastname = $_POST['lastName'];
-    $projectname = $_POST['ProjectName'];
-    
-    $sql1 = "UPDATE employees SET firstName ='$firstname', lastName = '$lastname', addedProject = '$projectname' WHERE id = $id";
-    mysqli_query($conn, $sql1);
+   
+    if (empty($_POST['ProjectName'])) {
+        
+        $sql1 = "UPDATE employees SET firstName ='$firstname', lastName = '$lastname' WHERE id = $id";
+        $result = mysqli_query($conn, $sql1);
+        if (!$result){
+            die("Query filed");
+        }
 
-    $_SESSION['message'] = 'Updated Successfuly';
-    $_SESSION['message_type'] = 'warning';
+        $_SESSION['message'] = 'Updated Successfuly';
+        $_SESSION['message_type'] = 'warning';
+        header("location: employees.php"); 
+        
+    }  else {
+        $projectname= $_POST['ProjectName'];
+        $sql2 = "UPDATE employees SET firstName ='$firstname', lastName = '$lastname', addedProject = '$projectname' WHERE id = $id";
+        $result1 = mysqli_query($conn, $sql2);
+        if (!$result1){
+            die("Query filed");
+        }
 
-    header("location: employees.php"); 
-               
-}      
-
+        $_SESSION['message'] = 'Updated Successfuly';
+        $_SESSION['message_type'] = 'warning';
+        header("location: employees.php"); 
+    }           
+} 
+     
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -50,7 +65,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div  class="form-group mt-4">
                         <select name="ProjectName">
-                            <option value="ProjectName">PROJECT</option>
+                            <option value="0">PROJECT</option>
                             <?php
                                 $sql = 'SELECT * FROM projects';
                                 $result_projects = mysqli_query($conn, $sql);
@@ -59,7 +74,6 @@ if (isset($_POST['submit'])) {
                                 <?php } ?>
                         </select>
                     </div> 
-                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
                     <input type="submit" name="submit" value="Update" class="btn btn-success mt-3" />
                 </form>
             </div>
